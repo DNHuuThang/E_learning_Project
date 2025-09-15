@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+/* file: index.css */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 2.5s ease-in infinite;
+}
+
+.fade-in-delay {
+  opacity: 0;
+  animation: fadeIn 1.5s ease-in forwards;
+  animation-delay: 1.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cloudFloat {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+}
+
+.cloud-move {
+  animation: cloudFloat 5s linear infinite;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(-5%);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-10%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-15%);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 3.5s ease-out infinite;
+}
+
+@keyframes swingArc {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(30deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-30deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.swing-arc {
+  animation: swingArc 3s ease-in-out infinite;
+  transform-origin: bottom center;
+}
