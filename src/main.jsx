@@ -4,9 +4,13 @@ import "./index.css";
 import App from "./App.jsx";
 import { store } from "./stores/index.js";
 import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import { Toaster } from "sonner";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <App />
+    <ToastContainer position="top-right" autoClose={2000} />
+    <Toaster position="top-right" richColors expand duration={2000}  />
   </Provider>
 );

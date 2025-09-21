@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setListKhoaHoc } from "../../../stores/khoahoc";
 import { khoahocService } from "../../../service/khoahocService";
 import { Card, Rate, Pagination } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const { Meta } = Card;
 
@@ -10,13 +11,14 @@ const ListKhoaHoc = () => {
   const dispatch = useDispatch();
   const listKhoaHoc = useSelector((state) => state.khoahocSlice.listKhoaHoc);
   console.log("listKhoaHoc", listKhoaHoc);
+  const navigate = useNavigate();
 
   // State lưu page cho từng nhóm
   const [pageByCategory, setPageByCategory] = useState({});
 
   const fetchListKhoaHoc = async () => {
     try {
-      const responseListKhoaHoc = await khoahocService.getListKhoaHoc("GP01");
+      const responseListKhoaHoc = await khoahocService.getListKhoaHoc();
       dispatch(setListKhoaHoc(responseListKhoaHoc.data));
     } catch (error) {
       console.log("error", error);
@@ -27,13 +29,27 @@ const ListKhoaHoc = () => {
     fetchListKhoaHoc();
   }, []);
 
+  const handleRedirectKhoaHocDetailPage = (khoahocId) => {
+    console.log("khoahocId", khoahocId);
+    //DI Chuyển qua trang chi tiết khóa học
+    navigate(`/detail/${khoahocId}`);
+  };
+
   // Gom khóa học theo danh mục
-  const groupByCategory = listKhoaHoc.reduce((acc, course) => {
-    const category = course.danhMucKhoaHoc?.tenDanhMucKhoaHoc || "Khác";
-    if (!acc[category]) acc[category] = [];
-    acc[category].push(course);
-    return acc;
-  }, {});
+  const groupByCategory = {}; // object rỗng ban đầu
+
+  listKhoaHoc.forEach((course) => {
+    // Lấy tên danh mục, nếu không có thì dùng "Khác"
+    const categoryName = course.danhMucKhoaHoc?.tenDanhMucKhoaHoc || "Khác";
+
+    // Nếu object chưa có key này thì tạo mảng rỗng
+    if (!groupByCategory[categoryName]) {
+      groupByCategory[categoryName] = [];
+    }
+
+    // Thêm khóa học vào đúng nhóm
+    groupByCategory[categoryName].push(course);
+  });
 
   // Mỗi hàng chỉ hiện 4 item
   const pageSize = 4;
@@ -56,9 +72,12 @@ const ListKhoaHoc = () => {
 
             {/* Card list: chỉ 1 hàng */}
             <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-              {currentCourses.map((course) => (
+              {currentCourses.map((course, index) => (
                 <Card
-                  key={course.maKhoaHoc}
+                  onClick={() =>
+                    handleRedirectKhoaHocDetailPage(course.maKhoaHoc)
+                  }
+                  key={index}
                   hoverable
                   cover={
                     <img
@@ -69,10 +88,37 @@ const ListKhoaHoc = () => {
                   }
                   className="rounded-2xl shadow-md"
                 >
-                  <Meta
-                    title={course.tenKhoaHoc}
-                    description={course.moTa?.slice(0, 50) + "..."}
-                  />
+                  {/* Nhãn yêu thích */}
+                  <span
+                    className="
+                    absolute top-2 -left-1 sm:top-2 sm:-left-1 md:top-2 md:-left-1 lg:top-5 lg:-left-1 z-10
+                    bg-red-500 text-white text-xs px-2 py-1
+                    before:content-[''] before:absolute before:left-0 before:-bottom-2
+                    before:border-b-[10px] before:border-b-transparent
+                    before:border-r-[5px] before:border-r-red-500
+                    before:brightness-90
+                  after:content-[''] after:absolute after:-top-0.5 after:-right-3
+                  after:border-t-[12px] after:border-b-[12px] after:border-r-[12px]
+                  after:border-t-red-500 after:border-b-red-500 after:border-r-transparent
+                "
+                  >
+                    YÊU THÍCH
+                  </span>
+                  <span
+                    className="
+                      absolute top-45 -left-1 sm:top-45 sm:-left-1 md:top-45 md:-left-1 lg:top-45 lg:-left-1 lg:w-40
+                      bg-teal-500 text-white text-xs px-6 py-1 pr-8
+                      before:content-[''] before:absolute before:left-0 before:-bottom-2
+                      before:border-b-[10px] before:border-b-transparent
+                      before:border-r-[5px] before:border-r-teal-500
+                      after:content-[''] after:absolute after:-top-0.5 after:-right-3
+                      after:border-t-[12px] after:border-b-[12px] after:border-r-[12px]
+                      after:border-t-teal-500 after:border-b-teal-500 after:border-r-transparent
+                    "
+                  >
+                    {course.danhMucKhoaHoc?.tenDanhMucKhoaHoc || "Khóa học"}
+                  </span>
+
                   {/* Giá */}
                   <div className="mt-3 flex items-center justify-between">
                     <div className="flex flex-col">

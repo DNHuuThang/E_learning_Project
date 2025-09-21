@@ -1,10 +1,9 @@
 import { Route } from "react-router-dom";
 import HomePage from "../pages/home";
-import LearningDetailPage from "../pages/learning-detail";
+import KhoaHocDetail from "../pages/learning-detail";
 import HomeTemplate from "../templates/HomeTemplate";
 import AuthTemplate from "../templates/AuthTemplate";
 import LoginPage from "../pages/login";
-import RegisterPage from "../pages/register";
 
 const routers = [
   {
@@ -16,8 +15,8 @@ const routers = [
         element: <HomePage />,
       },
       {
-        path: "/detail",
-        element: <LearningDetailPage />,
+        path: "/detail/:khoahocId",
+        element: <KhoaHocDetail />,
       },
     ],
   },
@@ -28,10 +27,6 @@ const routers = [
       {
         path: "/login",
         element: <LoginPage />,
-      },
-      {
-        path: "/register",
-        element: <RegisterPage />,
       },
     ],
   },

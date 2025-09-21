@@ -5,11 +5,21 @@ import {
   CloseOutlined,
   DownOutlined,
   UpOutlined,
+  UserOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { khoahocService } from "../../service/khoahocService";
 import { setListDanhMuc } from "../../stores/danhmuc";
+import { setInfoUser } from "../../stores/user";
+import { keyLocalStorage, localStorageUtil } from "../util/localStorage";
+import { setLogout } from "../../stores/user";
+
+const handleLogout = () => {
+  dispatch(setLogout());
+  navigate("/");
+};
 
 const HeaderPage = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -17,6 +27,8 @@ const HeaderPage = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { infoUser } = useSelector((state) => state.userSlice);
 
   const listDanhMuc = useSelector((state) => state.danhmucSlice.listDanhMuc);
   console.log("listDanhMuc", listDanhMuc);
@@ -35,6 +47,10 @@ const HeaderPage = () => {
 
   const toggleDropdown = (menu) => {
     setOpenDropdown(openDropdown === menu ? null : menu);
+  };
+  const handleLogout = () => {
+    dispatch(setLogout());
+    navigate("/");
   };
 
   return (
@@ -103,13 +119,28 @@ const HeaderPage = () => {
           </a>
         </nav>
 
-        {/* Đăng nhập (desktop) */}
-        <button
-          onClick={() => navigate("/login")}
-          className="hidden md:block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-4 py-2 rounded"
-        >
-          ĐĂNG NHẬP
-        </button>
+        <div className="hidden md:flex items-center gap-3">
+          {infoUser ? (
+            <>
+              <span className="flex items-center gap-2 text-gray-700">
+                <UserOutlined /> {infoUser.hoTen || "Người dùng"}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-1 bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded"
+              >
+                <LogoutOutlined /> Đăng xuất
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => navigate("/login")}
+              className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-4 py-2 rounded"
+            >
+              ĐĂNG NHẬP
+            </button>
+          )}
+        </div>
 
         {/* Nút menu mobile */}
         <button
@@ -165,10 +196,22 @@ const HeaderPage = () => {
             THÔNG TIN
           </a>
 
-          {/* Đăng nhập */}
-          <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-4 py-2 rounded">
-            ĐĂNG NHẬP
-          </button>
+          {/* Đăng nhập/Đăng xuất */}
+          {infoUser ? (
+            <button
+              onClick={handleLogout}
+              className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded"
+            >
+              ĐĂNG XUẤT
+            </button>
+          ) : (
+            <button
+              onClick={() => navigate("/login")}
+              className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-4 py-2 rounded"
+            >
+              ĐĂNG NHẬP
+            </button>
+          )}
         </div>
       )}
     </header>

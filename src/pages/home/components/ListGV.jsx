@@ -12,7 +12,7 @@ const ListGV = () => {
 
   const fetchListGiangVien = async () => {
     try {
-      const response = await khoahocService.getListNguoiDung("GP01");
+      const response = await khoahocService.getListNguoiDung();
       const giangVienOnly = (response.data || []).filter(
         (user) => user.maLoaiNguoiDung === "GV"
       );
