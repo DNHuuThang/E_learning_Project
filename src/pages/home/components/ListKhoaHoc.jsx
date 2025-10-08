@@ -84,6 +84,10 @@ const ListKhoaHoc = () => {
                       alt={course.tenKhoaHoc}
                       src={course.hinhAnh}
                       className="h-48 object-cover"
+                      onError={(e) => {
+                        e.target.src =
+                          "https://canhme.com/wp-content/uploads/2018/09/Nodejs.png";
+                      }}
                     />
                   }
                   className="rounded-2xl shadow-md"

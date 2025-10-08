@@ -1,6 +1,7 @@
+import Lottie from "lottie-react";
 import React from "react";
 import { AiOutlineCheck } from "react-icons/ai"; // tick icon
-
+import EducationAnimation from "../../../../asset/Educatin.json";
 const CourseOverview = () => {
   const renderList = (items) =>
     items.map((item, idx) => (
@@ -13,26 +14,28 @@ const CourseOverview = () => {
   return (
     <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 p-6">
       {/* Khóa học */}
-      <div className="bg-teal-500 text-white p-6 relative row-span-2">
-        <h2 className="text-2xl font-bold mb-4">KHÓA HỌC</h2>
-        <p className="font-semibold mb-4">
-          Học qua dự án thực tế, học đi đôi với hành...
-        </p>
-        <ul className="space-y-2">
-          {renderList([
-            "Hơn 1000 bài tập và dự án thực tế",
-            "Công nghệ cập nhật mới nhất",
-            "Hình ảnh, ví dụ, bài giảng sinh động trực quan",
-            "Tư duy phân tích, giải quyết vấn đề trong dự án",
-            "Học tập kinh nghiệm, qui trình làm việc chuẩn",
-            "Cơ hội thực tập tại các công ty lớn như Microsoft",
-          ])}
-        </ul>
-        <img
-          src="https://demo2.cybersoft.edu.vn/static/media/astronaut.2eec3a58.png"
-          alt="astronaut"
-          className="absolute bottom-0 right-4 w-32"
-        />
+
+      <div className="bg-teal-500 text-white p-6 relative row-span-2 overflow-hidden">
+        <div className="relative z-10">
+          <h2 className="text-2xl font-bold mb-4">KHÓA HỌC</h2>
+          <p className="font-semibold mb-4">
+            Học qua dự án thực tế, học đi đôi với hành...
+          </p>
+          <ul className="space-y-2">
+            {renderList([
+              "Hơn 1000 bài tập và dự án thực tế",
+              "Công nghệ cập nhật mới nhất",
+              "Hình ảnh, ví dụ, bài giảng sinh động trực quan",
+              "Tư duy phân tích, giải quyết vấn đề trong dự án",
+              "Học tập kinh nghiệm, qui trình làm việc chuẩn",
+              "Cơ hội thực tập tại các công ty lớn như Microsoft",
+            ])}
+          </ul>
+        </div>
+
+        <div className="absolute bottom-0 right-0 w-3/4  opacity-80">
+          <Lottie animationData={EducationAnimation} />
+        </div>
       </div>
 
       {/* Lộ trình phù hợp */}

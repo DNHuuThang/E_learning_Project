@@ -30,8 +30,14 @@ export const khoahocService = {
     getDanhMucKhoaHoc: () => {
         return axiosCustom.get("/QuanLyKhoaHoc/LayDanhMucKhoaHoc");
     },
-    getKhoaHocTheoDanhMuc: (maDanhMuc) => {
-        return axiosCustom.get( `/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc&maDanhMuc=${maDanhMuc}`);
+getListKhoaHoc_PhanTrang: (page, pageSize, maNhom) => {
+  return axiosCustom.get(
+    `QuanLyKhoaHoc/LayDanhSachKhoaHoc_PhanTrang?page=${page}&pageSize=${pageSize}&MaNhom=${maNhom}`
+  );
+},
+
+    getKhoaHocTheoDanhMuc: (danhmucId) => {
+        return axiosCustom.get( `/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${danhmucId}`);
     },
     getListNguoiDung: () => {
         return axiosCustom.get("/QuanLyNguoiDung/LayDanhSachNguoiDung");
