@@ -1,4 +1,3 @@
-// Chuẩn hóa dữ liệu khóa học trả về từ API khác nhau
 export function normalizeCourse(it = {}) {
   return {
     ...it,
@@ -13,7 +12,6 @@ export function normalizeCourse(it = {}) {
   };
 }
 
-// Slug cho biDanh
 export function toSlug(s = "") {
   return s
     .toLowerCase()

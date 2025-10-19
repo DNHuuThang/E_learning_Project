@@ -1,4 +1,3 @@
-// src/components/admin/CourseTable.jsx
 import { Table, Space, Button, Popconfirm, Image } from "antd";
 
 export default function CourseTable({
@@ -10,7 +9,7 @@ export default function CourseTable({
   onChangePage,
   onEdit,
   onDelete,
-  onEnroll,           // <— thêm callback ghi danh
+  onEnroll, 
 }) {
   const columns = [
     {
@@ -43,7 +42,6 @@ export default function CourseTable({
       dataIndex: "nguoiTao",
       width: 160,
       render: (val) => {
-        // val có thể là string ("admin") hoặc object { hoTen: "...", taiKhoan: "..." }
         if (!val) return "-";
         if (typeof val === "string") return val;
         return val.hoTen || val.taiKhoan || "-";

@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setLogout } from "../stores/user";                     // ✅ NEW
+import { setLogout } from "../stores/user";       
 import { localStorageUtil, keyLocalStorage } from "../components/util/localStorage"; // ✅ NEW
 
 const { Header, Sider, Content } = Layout;
@@ -16,23 +16,22 @@ const { Header, Sider, Content } = Layout;
 export default function AdminTemplate() {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();                                // ✅ NEW
+  const dispatch = useDispatch();                 
 
   const handleLogout = () => {
-    // ✅ Xóa token & infoUser theo util chuẩn của dự án + dọn Redux
     localStorageUtil.remove(keyLocalStorage.TOKEN);
     localStorageUtil.remove(keyLocalStorage.INFO_USER);
     dispatch(setLogout());
     navigate("/");
   };
 
-  const goHome = () => navigate("/");                            // ✅ NEW
+  const goHome = () => navigate("/"); 
 
   const menuItems = [
     {
       key: "home",
       icon: <HomeOutlined />,
-      label: <span onClick={goHome}>Về trang chủ</span>,         // ✅ NEW
+      label: <span onClick={goHome}>Về trang chủ</span>,  
     },
     {
       key: "users",
@@ -81,7 +80,7 @@ export default function AdminTemplate() {
           <Dropdown
             menu={{
               items: [
-                { key: "home", label: "Về trang chủ", onClick: goHome },  // ✅ NEW
+                { key: "home", label: "Về trang chủ", onClick: goHome }, 
                 { key: "logout", label: "Đăng xuất", onClick: handleLogout },
               ],
             }}

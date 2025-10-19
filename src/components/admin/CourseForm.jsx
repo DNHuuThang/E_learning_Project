@@ -1,4 +1,3 @@
-// src/components/admin/CourseForm.jsx
 import {
   Modal,
   Form as AntForm,
@@ -15,7 +14,7 @@ import {
 } from "antd";
 import { useEffect, useState } from "react";
 import { khoahocService } from "../../service/khoahocService";
-import { userService } from "../../service/userService"; // ✨ thêm
+import { userService } from "../../service/userService";
 import { UploadOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 
@@ -50,7 +49,6 @@ export default function CourseForm({
       .catch(() => setDanhMucOptions([]));
   }, []);
 
-  // Lấy thông tin tài khoản từ BE để xác nhận là GV & set nguoiTao
   useEffect(() => {
     if (!open) return;
     setLoadingInfo(true);
@@ -65,7 +63,6 @@ export default function CourseForm({
           onClose?.();
           return;
         }
-        // Set sẵn nguoiTao từ BE (disable input phía dưới)
           form.setFieldsValue({ taiKhoanNguoiTao: info?.taiKhoan || "" });
       })
       .catch(() => {
@@ -73,7 +70,6 @@ export default function CourseForm({
         onClose?.();
       })
       .finally(() => setLoadingInfo(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   // Set default/initial form
@@ -198,7 +194,6 @@ export default function CourseForm({
               name="taiKhoanNguoiTao"
               rules={[{ required: true, message: "Bắt buộc" }]}
             >
-              {/* ✨ lấy từ BE & không cho sửa để khớp kiểm tra vai trò */}
               <Input size="large" disabled />
             </AntForm.Item>
           </Col>

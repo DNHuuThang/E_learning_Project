@@ -227,7 +227,6 @@ export default function EnrollModal({ open, onClose, user }) {
 
       <Divider />
 
-      {/* KHÓA HỌC CHỜ XÁC THỰC */}
       <h4 style={{ marginBottom: 8 }}>Khóa học chờ xác thực</h4>
       <Table
         rowKey="maKhoaHoc"
@@ -246,7 +245,6 @@ export default function EnrollModal({ open, onClose, user }) {
 
       <Divider />
 
-      {/* KHÓA HỌC ĐÃ GHI DANH */}
       <h4 style={{ marginBottom: 8 }}>Khóa học đã ghi danh</h4>
       <Table
         rowKey="maKhoaHoc"

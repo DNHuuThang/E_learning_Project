@@ -46,7 +46,6 @@ export const userService = {
   },
 
   thongTinTaiKhoan(payload) {
-    // Một số backend yêu cầu { taiKhoan } để trả chi tiết
     return axiosCustom.post("/QuanLyNguoiDung/ThongTinTaiKhoan", payload);
   },
 
@@ -55,21 +54,17 @@ export const userService = {
   },
 
   capNhatThongTinNguoiDung(data) {
-    // Thường payload bao gồm đầy đủ các field; admin được phép cập nhật nhiều trường
     return axiosCustom.put("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", data);
   },
 
   xoaNguoiDung(taiKhoan) {
-    // Thường là ?TaiKhoan=abc
     return axiosCustom.delete("/QuanLyNguoiDung/XoaNguoiDung", {
       params: { TaiKhoan: taiKhoan },
     });
   },
 
-  // Các API phục vụ "Ghi danh"
    layDanhSachKhoaHocChuaGhiDanh({ taiKhoan }) {
    const tk = typeof taiKhoan === "string" ? taiKhoan : (taiKhoan?.taiKhoan ?? "");
-   // POST nhưng không có body; truyền query TaiKhoan đúng như Swagger
    return axiosCustom.post(
      "/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh",
      null,

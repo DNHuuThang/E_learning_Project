@@ -1,4 +1,3 @@
-// src/components/CourseEnrollModal.jsx
 import { useEffect, useMemo, useState } from "react";
 import { Modal, Select, Button, Table, Space, Divider, message } from "antd";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -95,7 +94,6 @@ export default function CourseEnrollModal({ open, onClose, course, currentAdminT
     onError: (e) => message.error(e?.response?.data || "Ghi danh thất bại"),
   });
 
-  // Xác thực: dùng luôn endpoint ghiDanhKhoaHoc (duyệt)
   const muApprove = useMutation({
     mutationFn: ({ taiKhoan }) => userService.ghiDanhKhoaHoc({ maKhoaHoc, taiKhoan }),
     onSuccess: () => {
@@ -201,7 +199,6 @@ export default function CourseEnrollModal({ open, onClose, course, currentAdminT
         </Button>
       </div>
 
-      {/* CHỜ XÁC THỰC */}
       <h3>Học viên chờ xác thực</h3>
       <SearchInput
         placeholder="Nhập tên học viên hoặc số điện thoại"
@@ -226,7 +223,6 @@ export default function CourseEnrollModal({ open, onClose, course, currentAdminT
 
       <Divider />
 
-      {/* ĐÃ THAM GIA */}
       <h3>Học viên đã tham gia khóa học</h3>
       <SearchInput
         placeholder="Nhập tên học viên hoặc số điện thoại"

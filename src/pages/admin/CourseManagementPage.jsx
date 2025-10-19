@@ -17,7 +17,6 @@ export default function CoursesPage() {
   const [editing, setEditing] = useState(null);
   const [enrollCourse, setEnrollCourse] = useState(null);
 
-  // INFO_USER localStorage (không phụ thuộc Redux để page độc lập)
   const infoUser = useMemo(() => {
     try { return JSON.parse(localStorage.getItem("INFO_USER") || "null"); }
     catch { return null; }
