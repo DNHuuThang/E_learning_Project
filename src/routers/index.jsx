@@ -4,7 +4,10 @@ import KhoaHocDetail from "../pages/learning-detail";
 import HomeTemplate from "../templates/HomeTemplate";
 import AuthTemplate from "../templates/AuthTemplate";
 import LoginPage from "../pages/login";
-
+import AdminTemplate from "../templates/AdminTemplate";
+import UserManagementPage from "../pages/admin/UserManagementPage";
+import CourseManagementPage from "../pages/admin/CourseManagementPage";
+import AuthCheck from "../HOC/AuthCheck";
 const routers = [
   {
     path: "",
@@ -28,6 +31,19 @@ const routers = [
         path: "/login",
         element: <LoginPage />,
       },
+    ],
+  },
+  {
+    path: "/admin",
+    element: (
+      <AuthCheck requireAdmin>
+        <AdminTemplate />
+      </AuthCheck>
+    ),
+    child: [
+      { index: true, element: <div>Trang chủ admin</div> },
+      { path: "quanlynguoidung", element: <UserManagementPage /> },
+      { path: "quanlykhoahoc", element: <CourseManagementPage /> },
     ],
   },
 ];

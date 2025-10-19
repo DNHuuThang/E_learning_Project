@@ -7,6 +7,7 @@ import {
   UpOutlined,
   UserOutlined,
   LogoutOutlined,
+  SettingOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -117,6 +118,14 @@ const HeaderPage = () => {
           <a href="#" className="hover:text-yellow-600">
             THÔNG TIN
           </a>
+          {infoUser?.maLoaiNguoiDung === "GV" && (
+            <button
+              onClick={() => navigate("/admin/quanlynguoidung")}
+              className="flex items-center gap-1 text-white bg-teal-600 hover:bg-teal-700 px-3 py-2 rounded"
+            >
+              <SettingOutlined />
+            </button>
+          )}
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
@@ -195,7 +204,14 @@ const HeaderPage = () => {
           <a href="#" className="block hover:text-yellow-600">
             THÔNG TIN
           </a>
-
+            {infoUser?.maLoaiNguoiDung === "GV" && (
+            <button
+              onClick={() => navigate("/admin/quanlynguoidung")}
+              className="w-full flex items-center justify-center gap-1 bg-teal-600 hover:bg-teal-700 text-white font-semibold px-4 py-2 rounded"
+            >
+              <SettingOutlined />
+            </button>
+          )}
           {/* Đăng nhập/Đăng xuất */}
           {infoUser ? (
             <button
