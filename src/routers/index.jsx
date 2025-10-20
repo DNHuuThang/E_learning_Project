@@ -4,6 +4,8 @@ import KhoaHocDetail from "../pages/learning-detail";
 import HomeTemplate from "../templates/HomeTemplate";
 import AuthTemplate from "../templates/AuthTemplate";
 import LoginPage from "../pages/login";
+
+// 🧩 Giữ lại tất cả route user từ master
 import DanhMucPage from "../pages/category";
 import KhoaHocPhanTrangPage from "../pages/khoahocphantrang/ListKhoaHocPhanTrang";
 import InfoUser from "../pages/infoUser";
@@ -12,17 +14,21 @@ import InfoUserUpdate from "../pages/infoUser/components/infoUserUpdate";
 import BlogListPage from "../pages/blog";
 import EvenPage from "../pages/even";
 import InfoElerningPage from "../pages/infoElerning";
+
+// 🧩 Thêm route admin từ nhánh admin
+import AdminTemplate from "../templates/AdminTemplate";
+import UserManagementPage from "../pages/admin/UserManagementPage";
+import CourseManagementPage from "../pages/admin/CourseManagementPage";
+
 import AuthCheck from "../HOC/AuthCheck";
 
 const routers = [
+  // Trang người dùng (Home)
   {
     path: "",
     element: <HomeTemplate />,
     child: [
-      {
-        path: "",
-        element: <HomePage />,
-      },
+      { path: "", element: <HomePage /> },
       {
         path: "/detail/:khoahocId",
         element: (
@@ -97,6 +103,8 @@ const routers = [
       },
     ],
   },
+
+  // Trang đăng nhập
   {
     path: "",
     element: <AuthTemplate />,
@@ -105,6 +113,21 @@ const routers = [
         path: "/login",
         element: <LoginPage />,
       },
+    ],
+  },
+
+  // Trang admin (thêm từ nhánh admin)
+  {
+    path: "/admin",
+    element: (
+      <AuthCheck requireAdmin>
+        <AdminTemplate />
+      </AuthCheck>
+    ),
+    child: [
+      { index: true, element: <div>Trang chủ admin</div> },
+      { path: "quanlynguoidung", element: <UserManagementPage /> },
+      { path: "quanlykhoahoc", element: <CourseManagementPage /> },
     ],
   },
 ];

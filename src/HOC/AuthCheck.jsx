@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
-const AuthCheck = ({ children }) => {
+export default function AuthCheck({ children, requireAdmin = false }) {
+  const navigate = useNavigate();
   const { infoUser } = useSelector((state) => state.userSlice);
 
-  // Nếu chưa đăng nhập thì chuyển hướng về /login
-  if (!infoUser) {
-    return <Navigate to="/login" replace />;
-  }
+  // Nếu chưa đăng nhập thì chuyển hướng về login
+  useEffect(() => {
+    if (!infoUser) {
+      navigate("/login");
+      return;
+    }
 
-  // Nếu có đăng nhập thì cho hiển thị trang con
+    // Nếu yêu cầu quyền Admin nhưng user không phải admin
+    if (requireAdmin && infoUser?.maLoaiNguoiDung !== "GV") {
+      navigate("/");
+    }
+  }, [navigate, infoUser, requireAdmin]);
+
+  // Nếu có đăng nhập, hiển thị children
   return <>{children}</>;
-};
-
-export default AuthCheck;
+}
