@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { khoahocService } from "../../../../service/khoahocService";
 import { Pagination } from "antd";
 import { CiCalendarDate, CiClock1, CiFilter } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
 
 const KhoaHocThamKhao = () => {
   const [danhSachKhoaHoc, setDanhSachKhoaHoc] = useState([]);
   const [trangHienTai, setTrangHienTai] = useState(1);
   const soLuongMoiTrang = 4;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -19,6 +21,11 @@ const KhoaHocThamKhao = () => {
     };
     fetchCourses();
   }, []);
+  const handleRedirectKhoaHocDetailPage = (khoahocId) => {
+    console.log("khoahocId", khoahocId);
+    //DI Chuyển qua trang chi tiết khóa học
+    navigate(`/detail/${khoahocId}`);
+  };
 
   // Lấy danh sách khóa học hiển thị theo trang
   const indexBatDau = (trangHienTai - 1) * soLuongMoiTrang;
@@ -34,7 +41,11 @@ const KhoaHocThamKhao = () => {
       {/* Grid hiển thị */}
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 gap-x-20">
         {danhSachHienThi.map((khoaHoc) => (
-          <div key={khoaHoc.maKhoaHoc} className="relative group">
+          <div
+            key={khoaHoc.maKhoaHoc}
+            className="relative group"
+            onClick={() => handleRedirectKhoaHocDetailPage(khoaHoc.maKhoaHoc)}
+          >
             {/* Nhãn yêu thích */}
             <span
               className="
@@ -57,6 +68,10 @@ const KhoaHocThamKhao = () => {
                 src={khoaHoc.hinhAnh}
                 alt={khoaHoc.tenKhoaHoc}
                 className="md:group-hover:scale-105 w-full h-40 object-cover "
+                onError={(e) => {
+                  e.target.src =
+                    "https://canhme.com/wp-content/uploads/2018/09/Nodejs.png";
+                }}
               />
 
               {/* Nội dung */}

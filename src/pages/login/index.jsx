@@ -60,7 +60,7 @@ const LoginPage = () => {
       console.log("responseRegister", responseRegister);
 
       toast.success("Đăng ký thành công! Vui lòng đăng nhập.");
-      setIsLogin(true); 
+      setIsLogin(true);
     } catch (error) {
       console.log("errorRegister", error);
 
@@ -75,7 +75,7 @@ const LoginPage = () => {
 
   return (
     <section className="w-full min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="relative w-full max-w-5xl min-h-[500px] bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div className="relative w-full max-w-5xl min-h-[600px] bg-white rounded-2xl shadow-xl overflow-hidden">
         {/* Wrapper chứa 2 panel */}
         {/* Wrapper đăng nhập */}
         <div

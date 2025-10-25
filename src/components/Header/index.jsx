@@ -53,7 +53,26 @@ const HeaderPage = () => {
     dispatch(setLogout());
     navigate("/");
   };
-
+  const handleRedirectDanhMucPage = (danhmucId) => {
+    console.log("danhmucTen", danhmucId);
+    //di chuyen qua trang danh muc
+    navigate(`/danhmuckhoahoc/${danhmucId}`);
+  };
+  const handleRedirectKhoaHocPhanTrang = () => {
+    navigate("/khoahoc");
+  };
+  const handleRedirectInfoUser = () => {
+    navigate("/infoUser");
+  };
+  const handleRedirectBlog = () => {
+    navigate("/blog");
+  };
+  const handleRedirectEven = () => {
+    navigate("/event");
+  };
+  const handleRedirectInfoVlearningPage = () => {
+    navigate("/thongtin");
+  };
   return (
     <header className="w-full">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-1 py-7">
@@ -96,7 +115,7 @@ const HeaderPage = () => {
               {listDanhMuc?.map((dm) => (
                 <a
                   key={dm.maDanhMuc}
-                  href="#"
+                  onClick={() => handleRedirectDanhMucPage(dm.maDanhMuc)}
                   className="block px-4 py-2 hover:bg-teal-500 transition"
                 >
                   {dm.tenDanhMuc}
@@ -106,16 +125,22 @@ const HeaderPage = () => {
           </div>
 
           {/* Các menu khác */}
-          <a href="#" className="hover:text-yellow-600">
+          <a
+            onClick={handleRedirectKhoaHocPhanTrang}
+            className="hover:text-yellow-600"
+          >
             KHÓA HỌC
           </a>
-          <a href="#" className="hover:text-yellow-600">
+          <a onClick={handleRedirectBlog} className="hover:text-yellow-600">
             BLOG
           </a>
-          <a href="#" className="hover:text-yellow-600">
+          <a onClick={handleRedirectEven} className="hover:text-yellow-600">
             SỰ KIỆN
           </a>
-          <a href="#" className="hover:text-yellow-600">
+          <a
+            onClick={handleRedirectInfoVlearningPage}
+            className="hover:text-yellow-600"
+          >
             THÔNG TIN
           </a>
           {infoUser?.maLoaiNguoiDung === "GV" && (
@@ -131,7 +156,10 @@ const HeaderPage = () => {
         <div className="hidden md:flex items-center gap-3">
           {infoUser ? (
             <>
-              <span className="flex items-center gap-2 text-gray-700">
+              <span
+                onClick={handleRedirectInfoUser}
+                className="flex items-center gap-2 text-gray-700"
+              >
                 <UserOutlined /> {infoUser.hoTen || "Người dùng"}
               </span>
               <button

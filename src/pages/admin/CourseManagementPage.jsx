@@ -55,24 +55,11 @@ export default function CoursesPage() {
         taiKhoanNguoiTao: formData.taiKhoanNguoiTao,
       };
 
-      const chosenFile = formData?.file instanceof File ? formData.file : null;
-
       if (editing) {
-        if (chosenFile) {
-          const fd = new FormData();
-          fd.append("frm", JSON.stringify(payload));
-          fd.append("File", chosenFile);
-          await khoahocService.capNhatKhoaHocUpload(fd);
-        } else {
-          await khoahocService.capNhatKhoaHoc(payload);
-        }
+        await khoahocService.capNhatKhoaHoc(payload);
         message.success("Đã cập nhật khóa học");
       } else {
-        if (chosenFile) {
-          await khoahocService.themKhoaHocUploadHinh({ payload, file: chosenFile });
-        } else {
-          await khoahocService.themKhoaHoc(payload);
-        }
+        await khoahocService.themKhoaHoc(payload);
         message.success("Đã thêm khóa học");
       }
 

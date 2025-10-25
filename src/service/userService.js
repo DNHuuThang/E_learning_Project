@@ -1,5 +1,6 @@
 import { axiosCustom } from "./config";
 const DEFAULT_GROUP = "GP01";
+
 export const userService = {
   postLogin: (infoUser) => {
     return axiosCustom.post("/QuanLyNguoiDung/DangNhap", infoUser);
@@ -7,6 +8,19 @@ export const userService = {
   postRegister: (infoUser) => {
     return axiosCustom.post("/QuanLyNguoiDung/DangKy", infoUser);
   },
+  postInfoUser: (infoUser) => {
+    return axiosCustom.post("/QuanLyNguoiDung/ThongTinTaiKhoan", infoUser);
+  },
+  putInfoUserUpdate: (infoUser) => {
+    return axiosCustom.put("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", infoUser);
+  },
+  postDangKyKhoaHoc: (infoUser) => {
+    return axiosCustom.post("/QuanLyKhoaHoc/DangKyKhoaHoc", infoUser);
+  },
+  postHuyDangKyKhoaHoc: (infoUser) => {
+    return axiosCustom.post("/QuanLyKhoaHoc/HuyGhiDanh", infoUser);
+  },
+
   layDanhSachLoaiNguoiDung() {
     return axiosCustom.get("/QuanLyNguoiDung/LayDanhSachLoaiNguoiDung");
   },
@@ -63,14 +77,14 @@ export const userService = {
     });
   },
 
-   layDanhSachKhoaHocChuaGhiDanh({ taiKhoan }) {
-   const tk = typeof taiKhoan === "string" ? taiKhoan : (taiKhoan?.taiKhoan ?? "");
-   return axiosCustom.post(
-     "/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh",
-     null,
-     { params: { TaiKhoan: tk } }
-   );
- },
+  layDanhSachKhoaHocChuaGhiDanh({ taiKhoan }) {
+    const tk = typeof taiKhoan === "string" ? taiKhoan : (taiKhoan?.taiKhoan ?? "");
+    return axiosCustom.post(
+      "/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh",
+      null,
+      { params: { TaiKhoan: tk } }
+    );
+  },
   layDanhSachKhoaHocChoXetDuyet({ taiKhoan }) {
     return axiosCustom.post(
       "/QuanLyNguoiDung/LayDanhSachKhoaHocChoXetDuyet",
@@ -96,7 +110,7 @@ export const userService = {
     );
   },
   layDanhSachHocVienKhoaHoc({ maKhoaHoc }) {
-    return axiosCustom.post("/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc",{ maKhoaHoc });
+    return axiosCustom.post("/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc", { maKhoaHoc });
   },
   ghiDanhKhoaHoc({ maKhoaHoc, taiKhoan }) {
     return axiosCustom.post("/QuanLyKhoaHoc/GhiDanhKhoaHoc", {

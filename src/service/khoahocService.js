@@ -6,10 +6,42 @@ export const khoahocService = {
     if (typeof tuKhoa === "string" && tuKhoa.trim()) params.tuKhoa = tuKhoa.trim();
     return axiosCustom.get("/QuanLyKhoaHoc/LayDanhSachKhoaHoc", { params });
   },
-
+    getListKhoaHoc: (maNhom = "GP01") => {
+      return axiosCustom.get(
+        `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=${maNhom}`
+      );    
+    },
+  getKhoaHocDetail: (khoahocId) => {
+    return axiosCustom.get(`/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${khoahocId}`);
+  },
   // Danh mục
-  layDanhMucKhoaHoc: () =>
-    axiosCustom.get("/QuanLyKhoaHoc/LayDanhMucKhoaHoc"),
+  layDanhMucKhoaHoc: () => axiosCustom.get("/QuanLyKhoaHoc/LayDanhMucKhoaHoc"),
+
+  getDanhMucKhoaHoc: () => {
+    return axiosCustom.get("/QuanLyKhoaHoc/LayDanhMucKhoaHoc");
+  },
+
+  getListKhoaHoc_PhanTrang: (page, pageSize, maNhom) => {
+    return axiosCustom.get(
+      `QuanLyKhoaHoc/LayDanhSachKhoaHoc_PhanTrang?page=${page}&pageSize=${pageSize}&MaNhom=${maNhom}`
+    );
+  },
+
+  getKhoaHocTheoDanhMuc: (danhmucId) => {
+    return axiosCustom.get(`/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${danhmucId}`);
+  },
+
+  getListNguoiDung: () => {
+    return axiosCustom.get("/QuanLyNguoiDung/LayDanhSachNguoiDung");
+  },
+
+  postLogin: () => {
+    return axiosCustom.post("/QuanLyNguoiDung/DangNhap");
+  },
+
+  postRegister: () => {
+    return axiosCustom.post("/QuanLyNguoiDung/DangKy");
+  },
 
   // Theo danh mục
   layKhoaHocTheoDanhMuc: ({ maDanhMuc, maNhom = "GP01" }) =>
@@ -32,11 +64,9 @@ export const khoahocService = {
   layThongTinHocVienKhoaHoc: (maKhoaHoc) =>
     axiosCustom.get("/QuanLyKhoaHoc/LayThongTinHocVienKhoaHoc", { params: { maKhoaHoc } }),
 
-  themKhoaHoc: (payload) =>
-    axiosCustom.post("/QuanLyKhoaHoc/ThemKhoaHoc", payload),
+  themKhoaHoc: (payload) => axiosCustom.post("/QuanLyKhoaHoc/ThemKhoaHoc", payload),
 
-  capNhatKhoaHoc: (payload) =>
-    axiosCustom.put("/QuanLyKhoaHoc/CapNhatKhoaHoc", payload),
+  capNhatKhoaHoc: (payload) => axiosCustom.put("/QuanLyKhoaHoc/CapNhatKhoaHoc", payload),
 
   xoaKhoaHoc: (maKhoaHoc) =>
     axiosCustom.delete("/QuanLyKhoaHoc/XoaKhoaHoc", { params: { MaKhoaHoc: maKhoaHoc } }),
